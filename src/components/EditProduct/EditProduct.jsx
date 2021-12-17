@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
-import { Button, Form, Input, Select } from "antd";
+import { Button, Form, Input, InputNumber, Select } from "antd";
 import { productsContext } from "../../contexts/productsContext";
 import { brandsContext } from "../../contexts/brandsContext";
 
@@ -87,7 +87,7 @@ const EditProduct = () => {
             },
           ]}
         >
-          <Input />
+          <InputNumber min={1} style={{width: '100%'}} />
         </Form.Item>
 
         <Form.Item

@@ -12,10 +12,12 @@ import Routing from "./Routing";
 
 import "antd/dist/antd.css";
 import "./App.css";
+import CartContextProvider from "./contexts/cartContext";
 
 const App = () => {
   return (
     <AuthContextProvider>
+      <CartContextProvider>
       <BrandsContextProvider>
         <ProductsContextProvider>
           <BrowserRouter>
@@ -25,8 +27,20 @@ const App = () => {
           </BrowserRouter>
         </ProductsContextProvider>
       </BrandsContextProvider>
+      </CartContextProvider>
     </AuthContextProvider>
   );
 };
 
 export default App;
+
+
+/*
+crud 
+фильтрация
+пагинация
+поиск
+корзина
+роутинг
+админка
+*/
