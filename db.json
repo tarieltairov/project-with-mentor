@@ -1,5 +1,5 @@
 {
-  "products": [
+  "apiproducts": [
     {
       "brand": "ROLEX",
       "model": "Formula 1 41mm Quartz Bicolour Mens Watch WAZ1120.BB0879",
@@ -31,7 +31,7 @@
       "id": 3
     }],
 
-  "brands": [
+  "apibrands": [
     {
       "brand": "ROLEX",
       "logo": "https://content.thewosgroup.com/mayors/brands/a-z/rolex-logo.png",
