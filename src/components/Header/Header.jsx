@@ -1,8 +1,12 @@
-import styles from "./Header.module.scss";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { logout } from "@/store/slices/authSlice";
 import logo from "@assets/react.svg";
 import cart from "@assets/images/svg/cart.svg";
 import heart from "@assets/images/svg/heart.svg";
-import { NavLink, useNavigate } from "react-router-dom";
+
+import styles from "./Header.module.scss";
 
 const pages = [
   {
@@ -34,6 +38,7 @@ const pagesWithIcons = [
 
 export function Header() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <header className={styles.header}>
@@ -61,6 +66,7 @@ export function Header() {
           />
         ))}
       </div>
+      <button onClick={() => dispatch(logout())}>Выйти</button>
     </header>
   );
 }
