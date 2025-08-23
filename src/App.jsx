@@ -2,11 +2,12 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Header } from "./components/Header";
 import "./styles/global.scss";
 import { MainLayout } from "./layouts/MainLayout";
-import { Login } from "./pages/Login";
+// import { Login } from "./pages/Login";
 import { PublicRoute } from "./routes/PublicRoute";
 import { PrivateRoute } from "./routes/PrivateRoutes";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import { Auth } from "./pages/Auth";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Routes>
           {/* Публичные роуты */}
           <Route element={<PublicRoute />}>
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Auth />} />
           </Route>
 
           <Route element={<MainLayout />}>
