@@ -1,30 +1,45 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { signIn, signUp } from "../actions/actions";
 
 const initialState = {
-  isAuth: false,
-  token: "",
-  user: {
-    role: "user",
-    username: "",
-  },
+  user: JSON.parse(localStorage.getItem("user-data")) || null,
+  isAuthLoading: false,
+  error: null,
 };
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    login: (state, action) => {
-      state.isAuth = true;
-      state.token = action.payload.accessToken;
-      state.user.username = action.payload.username;
-      localStorage.setItem("token", action.payload.accessToken);
-    },
     logout: (state) => {
-      state.isAuth = false;
-      state.token = "";
       state.user = null;
-      localStorage.removeItem("token");
+      localStorage.removeItem("user-data");
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(signUp.pending, (state) => {
+      state.isAuthLoading = true;
+    });
+    builder.addCase(signUp.fulfilled, (state, { payload }) => {
+      state.isAuthLoading = false;
+      state.user = payload;
+    });
+    builder.addCase(signUp.rejected, (state, { payload }) => {
+      state.isAuthLoading = false;
+      state.error = payload;
+    });
+
+    builder.addCase(signIn.pending, (state) => {
+      state.isAuthLoading = true;
+    });
+    builder.addCase(signIn.fulfilled, (state, { payload }) => {
+      state.isAuthLoading = false;
+      state.user = payload;
+    });
+    builder.addCase(signIn.rejected, (state, { payload }) => {
+      state.isAuthLoading = false;
+      state.error = payload;
+    });
   },
 });
 

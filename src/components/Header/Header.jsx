@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { logout } from "@/store/slices/authSlice";
 import logo from "@assets/react.svg";
@@ -39,6 +39,7 @@ const pagesWithIcons = [
 export function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <header className={styles.header}>
@@ -66,7 +67,14 @@ export function Header() {
           />
         ))}
       </div>
-      <button onClick={() => dispatch(logout())}>Выйти</button>
+      <div>
+        {user && (
+          <p>
+            {user.name} <br /> {user.lastName}
+          </p>
+        )}
+        <button onClick={() => dispatch(logout())}>Выйти</button>
+      </div>
     </header>
   );
 }
