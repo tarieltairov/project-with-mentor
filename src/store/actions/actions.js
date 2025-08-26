@@ -36,7 +36,7 @@ export const signIn = createAsyncThunk(
   "auth/login",
   async function (userData, { rejectWithValue }) {
     try {
-      const { data } = await axios.get(`${BASE_URL}/usersd`);
+      const { data } = await axios.get(`${BASE_URL}/users`);
       const finded = data.find(
         (item) =>
           item.email === userData.email && item.password === userData.password
