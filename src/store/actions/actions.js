@@ -55,3 +55,27 @@ export const signIn = createAsyncThunk(
     }
   }
 );
+
+export const getProducts = createAsyncThunk(
+  "product/getProducts",
+  async function (params = {}, { rejectWithValue }) {
+    try {
+      const { data } = await axios.get(`${BASE_URL}/products`, { params });
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const getCategories = createAsyncThunk(
+  "categories/getCategories",
+  async function (params = {}, { rejectWithValue }) {
+    try {
+      const { data } = await axios.get(`${BASE_URL}/categories`, { params });
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);

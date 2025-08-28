@@ -8,6 +8,7 @@ import { PrivateRoute } from "./routes/PrivateRoutes";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { Auth } from "./pages/Auth";
+import { Catalog } from "./pages/Catalog";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
             {/* Приватные роуты  */}
             <Route element={<PrivateRoute allowedRoles={["user", "admin"]} />}>
               <Route element={<p>главная страница</p>} path="/" />
-              <Route element={<p>Каталог</p>} path="/catalog" />
+              <Route element={<Catalog/>} path="/catalog" />
               <Route element={<p>О нас</p>} path="/about" />
               <Route element={<p>Отзывы</p>} path="/reviews" />
               <Route element={<p>Избранные</p>} path="/favourite" />
