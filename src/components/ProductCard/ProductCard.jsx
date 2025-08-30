@@ -5,7 +5,7 @@ export function ProductCard({ product }) {
     <div className={styles.productCard}>
       <img src={product.img} alt="" />
       <div className={styles.productCard__data}>
-        <h2>{product.title}</h2>
+        <h2>{product.name}</h2>
         <p>{product.description}</p>
         <p>{product.price}</p>
       </div>
