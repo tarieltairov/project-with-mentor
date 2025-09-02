@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { signIn, signUp } from "../actions/actions";
+import { addProductToCart, signIn, signUp } from "../actions/actions";
 
 const initialState = {
   user: JSON.parse(localStorage.getItem("user-data")) || null,
@@ -37,6 +37,18 @@ export const authSlice = createSlice({
       state.user = payload;
     });
     builder.addCase(signIn.rejected, (state, { payload }) => {
+      state.isAuthLoading = false;
+      state.error = payload;
+    });
+
+    builder.addCase(addProductToCart.pending, (state) => {
+      state.isAuthLoading = true;
+    });
+    builder.addCase(addProductToCart.fulfilled, (state, { payload }) => {
+      state.isAuthLoading = false;
+      state.user = payload;
+    });
+    builder.addCase(addProductToCart.rejected, (state, { payload }) => {
       state.isAuthLoading = false;
       state.error = payload;
     });

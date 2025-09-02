@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { Auth } from "./pages/Auth";
 import { Catalog } from "./pages/Catalog";
+import { Cart } from "./pages/Cart";
 
 function App() {
   return (
@@ -24,11 +25,11 @@ function App() {
             {/* Приватные роуты  */}
             <Route element={<PrivateRoute allowedRoles={["user", "admin"]} />}>
               <Route element={<p>главная страница</p>} path="/" />
-              <Route element={<Catalog/>} path="/catalog" />
+              <Route element={<Catalog />} path="/catalog" />
               <Route element={<p>О нас</p>} path="/about" />
               <Route element={<p>Отзывы</p>} path="/reviews" />
               <Route element={<p>Избранные</p>} path="/favourite" />
-              <Route element={<p>Корзина</p>} path="/cart" />
+              <Route element={<Cart />} path="/cart" />
             </Route>
 
             <Route element={<PrivateRoute allowedRoles={["admin"]} />}>

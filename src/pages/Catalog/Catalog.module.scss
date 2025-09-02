@@ -1,11 +1,24 @@
 .catalog{
     display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    min-height: 100vh;
+    justify-content: space-around;
+    padding: 30px;
+    min-height: 30vh;
 }
 
 .buttons{
     display: flex;
     justify-content: space-between;
+}
+
+.pagination{
+    justify-self: center;
+    width: 200px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    button{
+        width: 30px;
+        height: 30px;
+    }
 }

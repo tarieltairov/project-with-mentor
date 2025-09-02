@@ -22,6 +22,7 @@ export const signUp = createAsyncThunk(
       const createdUser = await axios.post(`${BASE_URL}/users`, {
         ...userData,
         role: "user",
+        cart: [],
       });
 
       localStorage.setItem("user-data", JSON.stringify(createdUser.data));
@@ -56,12 +57,38 @@ export const signIn = createAsyncThunk(
   }
 );
 
+export const addProductToCart = createAsyncThunk(
+  "auth/addProductToCart",
+  async function (requestData, { rejectWithValue }) {
+    try {
+      const { data, status } = await axios.patch(
+        `${BASE_URL}/users/${requestData.id}`,
+        {
+          cart: requestData.cart,
+        }
+      );
+
+      if (status === 200) {
+        localStorage.setItem("user-data", JSON.stringify(data));
+        return data;
+      }
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 export const getProducts = createAsyncThunk(
   "product/getProducts",
   async function (params = {}, { rejectWithValue }) {
     try {
-      const { data } = await axios.get(`${BASE_URL}/products`, { params });
-      return data;
+      const { data, headers } = await axios.get(`${BASE_URL}/products`, {
+        params,
+      });
+      return {
+        total: headers.get("x-total-count"),
+        results: data,
+      };
     } catch (error) {
       return rejectWithValue(error);
     }
