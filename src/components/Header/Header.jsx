@@ -23,23 +23,27 @@ const pages = [
   },
 ];
 
-const pagesWithIcons = [
-  {
-    link: "/favourite",
-    badge: 0,
-    icon: heart,
-  },
-  {
-    link: "/cart",
-    badge: 0,
-    icon: cart,
-  },
-];
-
 export function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+
+  if (!user) {
+    return null;
+  }
+
+  const pagesWithIcons = [
+    {
+      link: "/favourite",
+      badge: 0,
+      icon: heart,
+    },
+    {
+      link: "/cart",
+      badge: user?.cart?.length,
+      icon: cart,
+    },
+  ];
 
   return (
     <header className={styles.header}>
@@ -59,14 +63,17 @@ export function Header() {
 
       <div className={styles.iconsWrapper}>
         {pagesWithIcons.map((item, index) => (
-          <img
-            key={index}
-            src={item.icon}
-            alt="icon-btn"
-            onClick={() => navigate(item.link)}
-          />
+          <div className={styles.iconWrapper} key={index}>
+            {!!item.badge && <span className={styles.badge}>{item.badge}</span>}
+            <img
+              src={item.icon}
+              alt="icon-btn"
+              onClick={() => navigate(item.link)}
+            />
+          </div>
         ))}
       </div>
+
       <div>
         {user && (
           <p>

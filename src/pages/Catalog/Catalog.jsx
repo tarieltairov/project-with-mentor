@@ -15,6 +15,7 @@ export function Catalog() {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState(null);
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(productsPerPage);
 
   const { productsLoading, products, total } = useSelector(
     (state) => state.products
@@ -30,12 +31,12 @@ export function Catalog() {
       getProducts({
         name_like: search,
         _sort: sort,
-        _limit: productsPerPage,
+        _limit: limit,
         _page: page,
       })
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search, sort, page]);
+  }, [search, sort, page, limit]);
 
   useEffect(() => {
     dispatch(getCategories());
@@ -58,11 +59,9 @@ export function Catalog() {
   };
 
   const handleAddToCart = (productId) => {
-    const findedProduct = user.cart.find(
-      (el) => el.productId == productId
-    );
+    const findedProduct = user?.cart?.find((el) => el.productId == productId);
 
-    let newCart = user.cart;
+    let newCart = user?.cart;
 
     if (findedProduct) {
       newCart = newCart.map((el) => {
@@ -73,11 +72,15 @@ export function Catalog() {
         }
       });
     } else {
-      newCart = [...newCart, { productId: productId, count: 1 }];
+      if (Array.isArray(newCart)) {
+        newCart = [...newCart, { productId: productId, count: 1 }];
+      }
     }
 
     dispatch(addProductToCart({ ...user, cart: newCart }));
   };
+
+  const pages = Math.ceil(total / limit);
 
   return (
     <>
@@ -119,22 +122,30 @@ export function Catalog() {
           ))}
       </div>
 
-      <div className={styles.pagination}>
-        <button
-          onClick={() => setPage((prev) => prev - 1)}
-          disabled={page <= 1}
-        >
-          {"<"}
-        </button>
-        <p>
-          {page}/{total / productsPerPage}
-        </p>
-        <button
-          onClick={() => setPage((prev) => prev + 1)}
-          disabled={page >= total / productsPerPage}
-        >
-          {">"}
-        </button>
+      <div className={styles.paginationWrapper}>
+        <input
+          type="number"
+          className={styles.limitInp}
+          value={limit}
+          onChange={(e) => setLimit(Number(e.target.value))}
+        />
+        <div className={styles.pagination}>
+          <button
+            onClick={() => setPage((prev) => prev - 1)}
+            disabled={page <= 1}
+          >
+            {"<"}
+          </button>
+          <p>
+            {page}/{pages}
+          </p>
+          <button
+            onClick={() => setPage((prev) => prev + 1)}
+            disabled={page >= pages}
+          >
+            {">"}
+          </button>
+        </div>
       </div>
     </>
   );

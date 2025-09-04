@@ -1,24 +1,33 @@
-.catalog{
-    display: flex;
-    justify-content: space-around;
-    padding: 30px;
-    min-height: 30vh;
+.catalog {
+  display: flex;
+  justify-content: space-around;
+  padding: 30px;
+  min-height: 30vh;
 }
 
-.buttons{
-    display: flex;
-    justify-content: space-between;
+.buttons {
+  display: flex;
+  justify-content: space-between;
 }
 
-.pagination{
-    justify-self: center;
-    width: 200px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+.pagination {
+  justify-self: center;
+  width: 200px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 
-    button{
-        width: 30px;
-        height: 30px;
-    }
+  button {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.paginationWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  .limitInp {
+    width: 40px;
+  }
 }

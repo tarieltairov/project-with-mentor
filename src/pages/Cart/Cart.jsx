@@ -14,13 +14,13 @@ export function Cart() {
 
   useEffect(() => {
     if (user.cart.length > 0) {
-      dispatch(getProducts({ id: user.cart.map((el) => el.productId) }));
+      dispatch(getProducts({ id: user.cart.map((el) => el?.productId) }));
     }
   }, [user]);
 
   const handleClickOnCartPageAdd = (productId) => {
     const newCart = user.cart.map((el) => {
-      if (el.productId == productId) {
+      if (el?.productId == productId) {
         return { ...el, count: el.count + 1 };
       } else {
         return el;
@@ -33,15 +33,15 @@ export function Cart() {
   const handleClickOnCartPageRemove = (productId) => {
     const newCart = user.cart
       .map((el) => {
-        if (el.count !== 1) {
-          if (el.productId == productId) {
+        if (el?.productId === productId) {
+          if (el.count > 1) {
             return { ...el, count: el.count - 1 };
-          } else {
-            return el;
           }
+          return null;
         }
+        return el;
       })
-      .filter((el) => el);
+      .filter(Boolean);
 
     dispatch(addProductToCart({ ...user, cart: newCart }));
   };
@@ -62,7 +62,7 @@ export function Cart() {
               handleClickOnCartPageRemove={() =>
                 handleClickOnCartPageRemove(el.id)
               }
-              total={user.cart.find((item) => item.productId == el.id)?.count}
+              total={user.cart.find((item) => item?.productId == el.id)?.count}
             />
           ))}
       </div>
