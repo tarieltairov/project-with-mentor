@@ -1,0 +1,1 @@
+export { ProductCardAdmin } from './ProductCardAdmin'

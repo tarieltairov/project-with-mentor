@@ -10,6 +10,7 @@ import { store } from "./store/store";
 import { Auth } from "./pages/Auth";
 import { Catalog } from "./pages/Catalog";
 import { Cart } from "./pages/Cart";
+import { AdminPage } from "./pages/AdminPage";
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
             </Route>
 
             <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
-              <Route element={<p>страница админа</p>} path="/admin" />
+              <Route element={<AdminPage />} path="/admin" />
             </Route>
           </Route>
 

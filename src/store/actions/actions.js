@@ -95,6 +95,52 @@ export const getProducts = createAsyncThunk(
   }
 );
 
+export const createProduct = createAsyncThunk(
+  "product/createProduct",
+  async function (productData, { rejectWithValue }) {
+    try {
+      const { data } = await axios.post(`${BASE_URL}/products`, {
+        ...productData,
+      });
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const editProduct = createAsyncThunk(
+  "product/editProduct",
+  async function (productData, { rejectWithValue }) {
+    try {
+      const { data } = await axios.patch(
+        `${BASE_URL}/products/${productData.id}`,
+        {
+          ...productData,
+        }
+      );
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const deleteProduct = createAsyncThunk(
+  "product/deleteProduct",
+  async function (id, { rejectWithValue }) {
+    try {
+      const { data } = await axios.delete(`${BASE_URL}/products/${id}`);
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 export const getCategories = createAsyncThunk(
   "categories/getCategories",
   async function (params = {}, { rejectWithValue }) {

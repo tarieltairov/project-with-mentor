@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { getProducts } from "../actions/actions";
+import {
+  createProduct,
+  deleteProduct,
+  editProduct,
+  getProducts,
+} from "../actions/actions";
 
 const initialState = {
   products: [],
@@ -24,6 +29,41 @@ export const productSlice = createSlice({
       state.total = payload.total;
     });
     builder.addCase(getProducts.rejected, (state, { payload }) => {
+      state.productsLoading = false;
+      state.error = payload;
+    });
+
+    builder.addCase(createProduct.pending, (state) => {
+      state.productsLoading = true;
+    });
+    builder.addCase(createProduct.fulfilled, (state, { payload }) => {
+      state.productsLoading = false;
+      state.singleProduct = payload;
+    });
+    builder.addCase(createProduct.rejected, (state, { payload }) => {
+      state.productsLoading = false;
+      state.error = payload;
+    });
+
+    builder.addCase(editProduct.pending, (state) => {
+      state.productsLoading = true;
+    });
+    builder.addCase(editProduct.fulfilled, (state, { payload }) => {
+      state.productsLoading = false;
+      state.singleProduct = payload;
+    });
+    builder.addCase(editProduct.rejected, (state, { payload }) => {
+      state.productsLoading = false;
+      state.error = payload;
+    });
+
+    builder.addCase(deleteProduct.pending, (state) => {
+      state.productsLoading = true;
+    });
+    builder.addCase(deleteProduct.fulfilled, (state) => {
+      state.productsLoading = false;
+    });
+    builder.addCase(deleteProduct.rejected, (state, { payload }) => {
       state.productsLoading = false;
       state.error = payload;
     });
